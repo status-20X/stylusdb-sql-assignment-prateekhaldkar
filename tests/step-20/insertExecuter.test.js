@@ -1,33 +1,150 @@
-const { executeINSERTQuery } = require('../../src/queryExecutor');
-const { readCSV, writeCSV } = require('../../src/csvReader');
-const fs = require('fs');
+// tests/index.test.js
 
-// Helper function to create grades.csv with initial data
-async function createGradesCSV() {
-    const initialData = [
-        { student_id: '1', course: 'Mathematics', grade: 'A' },
-        { student_id: '2', course: 'Chemistry', grade: 'B' },
-        { student_id: '3', course: 'Mathematics', grade: 'C' }
-    ];
-    await writeCSV('grades.csv', initialData);
-}
+const parseQuery = require('../../src/queryParser');
+const readCSV = require('../../src/csvReader');
+const executeSELECTQuery = require('../../src/index');
 
-// Test to INSERT a new grade and verify
-test('Execute INSERT INTO Query for grades.csv', async () => {
-    // Create grades.csv with initial data
-    await createGradesCSV();
 
-    // Execute INSERT statement
-    const insertQuery = "INSERT INTO grades (student_id, course, grade) VALUES ('4', 'Physics', 'A')";
-    await executeINSERTQuery(insertQuery);
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
 
-    // Verify the new entry
-    const updatedData = await readCSV('grades.csv');
-    const newEntry = updatedData.find(row => row.student_id === '4' && row.course === 'Physics');
-    console.log(updatedData)
-    expect(newEntry).toBeDefined();
-    expect(newEntry.grade).toEqual('A');
+test('Read CSV File', async () => {
+    const data = await readCSV('./sample.csv');
+    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBe(3);
+    expect(data[0].name).toBe('John');
+    expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
+});
 
-    // Cleanup: Delete grades.csv
-    fs.unlinkSync('grades.csv');
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Execute SQL Query', async () => {
+    const query = 'SELECT id, name FROM sample';
+    const result = await executeSELECTQuery(query);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0]).toHaveProperty('id');
+    expect(result[0]).toHaveProperty('name');
+    expect(result[0]).not.toHaveProperty('age');
+    expect(result[0]).toEqual({ id: '1', name: 'John' });
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Read CSV File', async () => {
+    const data = await readCSV('./sample.csv');
+    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBe(3);
+    expect(data[0].name).toBe('John');
+    expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Execute SQL Query', async () => {
+    const query = 'SELECT id, name FROM sample';
+    const result = await executeSELECTQuery(query);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0]).toHaveProperty('id');
+    expect(result[0]).toHaveProperty('name');
+    expect(result[0]).not.toHaveProperty('age');
+    expect(result[0]).toEqual({ id: '1', name: 'John' });
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Read CSV File', async () => {
+    const data = await readCSV('./sample.csv');
+    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBe(3);
+    expect(data[0].name).toBe('John');
+    expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Execute SQL Query', async () => {
+    const query = 'SELECT id, name FROM sample';
+    const result = await executeSELECTQuery(query);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0]).toHaveProperty('id');
+    expect(result[0]).toHaveProperty('name');
+    expect(result[0]).not.toHaveProperty('age');
+    expect(result[0]).toEqual({ id: '1', name: 'John' });
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Read CSV File', async () => {
+    const data = await readCSV('./sample.csv');
+    expect(data.length).toBeGreaterThan(0);
+    expect(data.length).toBe(3);
+    expect(data[0].name).toBe('John');
+    expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
+});
+
+test('Parse SQL Query', () => {
+    const query = 'SELECT id, name FROM sample';
+    const parsed = parseQuery(query);
+    expect(parsed).toEqual({
+        fields: ['id', 'name'],
+        table: 'sample'
+    });
+});
+
+test('Execute SQL Query', async () => {
+    const query = 'SELECT id, name FROM sample';
+    const result = await executeSELECTQuery(query);
+    expect(result.length).toBeGreaterThan(0);
+    expect(result[0]).toHaveProperty('id');
+    expect(result[0]).toHaveProperty('name');
+    expect(result[0]).not.toHaveProperty('age');
+    expect(result[0]).toEqual({ id: '1', name: 'John' });
 });

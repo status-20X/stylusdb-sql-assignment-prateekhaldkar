@@ -7,3 +7,4 @@ test('Read CSV File', async () => {
     expect(data[0].name).toBe('John');
     expect(data[0].age).toBe('30'); //ignore the string type here, we will fix this later
 });
+
